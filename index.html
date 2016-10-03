@@ -2,11 +2,30 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Neighborhood Map</title>
+
+    <!-- styles -->
+    <link href="https://fonts.googleapis.com/css?family=Asap:400,700" rel="stylesheet">
     <link rel="stylesheet" href="styles/styles.css">
+
+    <!-- vendor scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- scripts -->
     <script src="scripts/app.js"></script>
+
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoeg_J21aWd8cjY8PwiqoCSfw5_jVzLrY"></script>
   </head>
+
   <body>
-    <h1>Hello Map</h1>
+    <h1 id="title">Neighborhood Map</h1>
+    <div id="container">
+      <aside id="listview"></aside>
+      <div id="map"></div>
+    </div>
   </body>
 </html>
