@@ -1,23 +1,27 @@
-var locations = [
+var houses = [
   {
-    name: 'HanaHaus',
-    address: '456 University Ave, Palo Alto, CA 94301'
+    name: 'House Stark of Winterfell',
+    country: 'Russia'
   },
   {
-    name: 'AWS Pop-up Loft',
-    address: '925 Market St, San Francisco, CA 94103'
+    name: 'House Lannister of Casterly Rock',
+    country: 'United States of America'
   },
   {
-    name: 'B2 Coffee',
-    address: '87 N San Pedro St, San Jose, CA 95110'
+    name: "House Baratheon of King's Landing",
+    country: 'United Kingdom'
   },
   {
-    name: 'Avalon',
-    address: '255 King St, San Francisco, CA 94107'
+    name: 'House Greyjoy of Pyke',
+    country: 'Japan'
   },
   {
-    name: 'Android Statue Garden',
-    address: '1981 Landings Dr, Mountain View, CA 94043'
+    name: "House Targaryen of King's Landing",
+    country: 'China'
+  },
+  {
+    name: "House Martell of Dorne",
+    country: 'Spain'
   }
 ];
 
@@ -27,29 +31,29 @@ function MapViewModel() {
   var map;
   var markers = [];
 
-  mvm.locationsObservable = ko.observableArray();
-  locations.forEach(function(location) {
-    mvm.locationsObservable.push(location);
+  mvm.housesObservable = ko.observableArray();
+  houses.forEach(function(house) {
+    mvm.housesObservable.push(house);
   });
 
   mvm.filterBox = ko.observable('');
 
   function filterSearch(q) {
     if(q == '') {
-      mvm.locationsObservable.removeAll();
-      locations.forEach(function(location) {
-        mvm.locationsObservable.push(location);
+      mvm.housesObservable.removeAll();
+      houses.forEach(function(house) {
+        mvm.housesObservable.push(house);
       });
       markers.forEach(function(marker) {
         marker.setVisible(true);
       });
     } else {
-      mvm.locationsObservable.removeAll();
-      locations.forEach(function(location) {
-        var locationName = location.name.toLowerCase();
+      mvm.housesObservable.removeAll();
+      houses.forEach(function(house) {
+        var houseName = house.name.toLowerCase();
         var filterQuery = q.toLowerCase();
-        if (locationName.indexOf(filterQuery) >= 0) {
-          mvm.locationsObservable.push(location);
+        if (houseName.indexOf(filterQuery) >= 0) {
+          mvm.housesObservable.push(house);
         }
        });
        markers.forEach(function(marker) {
@@ -69,15 +73,15 @@ function MapViewModel() {
 
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 37.5483, lng: -121.9886},
-      zoom: 10
+      center: {lat: 28.0339, lng: 1.6596},
+      zoom: 2
     });
   };
 
-  function createMarker(geocoder, location) {
+  function createMarker(geocoder, house) {
       var lat, lng, latLng, marker, infoWindow;
       geocoder.geocode({
-        'address': location.address
+        'address': house.country
       }, function(result, status) {
         if (status == 'OK') {
           lat = result[0].geometry.location.lat();
@@ -87,12 +91,12 @@ function MapViewModel() {
           marker = new google.maps.Marker({
             position: latLng,
             map: map,
-            title: location.name,
+            title: house.name,
             visible: true
           });
 
           infoWindow = new google.maps.InfoWindow({
-            content: location.name
+            content: house.name
           });
 
           marker.addListener('click', function() {
@@ -120,10 +124,9 @@ function MapViewModel() {
   }
 
   initMap();
-
   var geocoder = new google.maps.Geocoder();
-  locations.forEach(function(location, i) {
-    createMarker(geocoder, location);
+  houses.forEach(function(house, i) {
+    createMarker(geocoder, house);
   });
 
   setMarkers();
