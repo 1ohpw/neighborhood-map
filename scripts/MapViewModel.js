@@ -40,6 +40,9 @@ function MapViewModel() {
       locations.forEach(function(location) {
         mvm.locationsObservable.push(location);
       });
+      markers.forEach(function(marker) {
+        marker.setVisible(true);
+      });
     } else {
       mvm.locationsObservable.removeAll();
       locations.forEach(function(location) {
@@ -48,6 +51,14 @@ function MapViewModel() {
         if (locationName.indexOf(filterQuery) >= 0) {
           mvm.locationsObservable.push(location);
         }
+       });
+       markers.forEach(function(marker) {
+         var markerTitle = marker.title.toLowerCase();
+         if (markerTitle.indexOf(q.toLowerCase()) >= 0) {
+           marker.setVisible(true);
+         } else {
+           marker.setVisible(false);
+         }
        });
     }
   }
@@ -76,6 +87,7 @@ function MapViewModel() {
           marker = new google.maps.Marker({
             position: latLng,
             map: map,
+            title: location.name,
             visible: true
           });
 
