@@ -9,7 +9,11 @@ html, body {
   text-align: center;
   margin;
   padding: 0;
-  color: #02b3e4;
+  color: #ffa000;
+}
+
+#welcome-text {
+  text-align: center;
 }
 
 #container {
@@ -20,7 +24,7 @@ html, body {
 }
 
 aside {
-  background-color: #455a64;
+  background-color: #795548;
   height: 80%;
   width: 20%;
   margin: 0 0 10% 10%;

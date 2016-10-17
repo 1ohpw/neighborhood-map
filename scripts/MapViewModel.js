@@ -20,16 +20,17 @@ var houses = [
     country: 'China'
   },
   {
-    name: "House Martell of Dorne",
+    name: "House Nymeros Martell of Sunspear",
     country: 'Spain'
   }
 ];
 
+var map;
+var markers = [];
+var infoWindows = [];
+
 function MapViewModel() {
   var mvm = this;
-
-  var map;
-  var markers = [];
 
   mvm.housesObservable = ko.observableArray();
   houses.forEach(function(house) {
@@ -74,48 +75,66 @@ function MapViewModel() {
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 28.0339, lng: 1.6596},
-      zoom: 2
+      zoom: 2,
+      mapTypeId: 'satellite'
     });
   };
 
   function createMarker(geocoder, house) {
-      var lat, lng, latLng, marker, infoWindow;
-      geocoder.geocode({
-        'address': house.country
-      }, function(result, status) {
-        if (status == 'OK') {
-          lat = result[0].geometry.location.lat();
-          lng = result[0].geometry.location.lng();
-          latLng = {'lat': lat, 'lng': lng};
+    var lat, lng, latLng, marker, infoWindow, content;
+    $.ajax({
+      url: "http://www.anapioficeandfire.com/api/houses/?name=" + house.name,
+      method: 'GET',
+      success: function(res) {
+        var houseData = res[0];
+        console.log(houseData);
+        content =
+            '<p>Name: ' + houseData.name + '</p>'
+            +'<p>Region: ' + houseData.region + '</p>'
+            + '<p>Founded: ' + houseData.founded + '</p>'
+            + '<p>Words: ' + houseData.words + '</p>'
+            +'<p>Coat of Arms: ' + houseData.coatOfArms + '</p>';
 
-          marker = new google.maps.Marker({
-            position: latLng,
-            map: map,
-            title: house.name,
-            visible: true
-          });
 
-          infoWindow = new google.maps.InfoWindow({
-            content: house.name
-          });
+            geocoder.geocode({
+              'address': house.country
+            }, function(result, status) {
+              if (status == 'OK') {
+                lat = result[0].geometry.location.lat();
+                lng = result[0].geometry.location.lng();
+                latLng = {'lat': lat, 'lng': lng};
 
-          marker.addListener('click', function() {
-            if(marker.getAnimation() == null) {
-              marker.setAnimation(google.maps.Animation.BOUNCE);
-            } else {
-              marker.setAnimation(null);
-            }
-            infoWindow.open(map, marker);
-          });
+                marker = new google.maps.Marker({
+                  position: latLng,
+                  map: map,
+                  title: house.name,
+                  visible: true
+                });
 
-          markers.push(marker);
+                infoWindow = new google.maps.InfoWindow({
+                  content: content,
+                  house: house.name
+                });
 
-        } else {
-          console.log('Geocode unsuccessful');
-        }
-      });
+                infoWindows.push(infoWindow);
+
+                marker.addListener('click', function() {
+                  if (marker.getAnimation() == null) {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                    setTimeout(function(){ marker.setAnimation(null); }, 800);
+                    infoWindow.open(map, marker);
+                  }
+                });
+
+                markers.push(marker);
+
+              } else {
+                console.log('Geocode unsuccessful');
+              }
+            });
+          }
+    });
   };
-
 
   function setMarkers() {
     markers.forEach(function(marker) {
@@ -135,4 +154,19 @@ function MapViewModel() {
 
 $(document).ready(function() {
   ko.applyBindings(new MapViewModel());
+
+  $(".listview-item").click(function() {
+    var clickedHouse = $(this).text();
+    markers.forEach(function(marker) {
+      if (clickedHouse == marker.title) {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function(){ marker.setAnimation(null); }, 800);
+        infoWindows.forEach(function(infoWindow) {
+          if (infoWindow.house == marker.title) {
+            infoWindow.open(map, marker);
+          }
+        });
+      }
+    });
+  });
 });
