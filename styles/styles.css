@@ -19,11 +19,42 @@ html, body {
   flex-direction: row;
 }
 
-#listview {
+aside {
   background-color: #455a64;
   height: 80%;
   width: 20%;
   margin: 0 0 10% 10%;
+  overflow: auto;
+}
+
+#listview {
+  background-color: white;
+  border: 1px solid black;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+hr {
+   margin: 0;
+}
+
+.listview-item {
+  text-align: center;
+}
+
+#filter {
+  width: 80%;
+  height: 4%;
+  display: block;
+  margin: 5% auto;
+}
+
+#filter-header, #locations-header {
+  text-align: center;
 }
 
 

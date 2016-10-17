@@ -15,6 +15,7 @@
     <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 
     <!-- scripts -->
+    <script src="scripts/MapViewModel.js"></script>
     <script src="scripts/app.js"></script>
 
     <!-- Google Maps API -->
@@ -22,9 +23,22 @@
   </head>
 
   <body>
-    <h1 id="title">Neighborhood Map</h1>
+    <h1 id="title">Favorite Workspaces</h1>
     <div id="container">
-      <aside id="listview"></aside>
+      <aside>
+        <h2 id="filter-header">Search</h2>
+        <input id="filter" type="text" data-bind="value: filterBox, valueUpdate: 'keyup'"></input>
+        <h2 id="locations-header"> Locations </h2>
+        <div id="listview">
+          <ul data-bind="template: {name: 'location', foreach:locationsObservable}"></ul>
+          <script type="text/html" id="location">
+            <li>
+              <h3 class="listview-item" data-bind="text: name"></h3>
+              <hr>
+            </li>
+          </script>
+        </div>
+      </aside>
       <div id="map"></div>
     </div>
   </body>
