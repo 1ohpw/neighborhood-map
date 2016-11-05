@@ -1,19 +1,19 @@
 var houses = [{
     name: 'House Stark of Winterfell',
     country: 'Russia'
-    }, {
+}, {
     name: 'House Lannister of Casterly Rock',
     country: 'United States of America'
-    }, {
+}, {
     name: "House Baratheon of King's Landing",
     country: 'United Kingdom'
-    }, {
+}, {
     name: 'House Greyjoy of Pyke',
     country: 'Japan'
-    }, {
+}, {
     name: "House Targaryen of King's Landing",
     country: 'China'
-    }, {
+}, {
     name: "House Nymeros Martell of Sunspear",
     country: 'Spain'
 }];
