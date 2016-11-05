@@ -16,10 +16,6 @@
     <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 
     <!-- scripts -->
-    <script src="scripts/MapViewModel.js"></script>
-
-    <!-- Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoeg_J21aWd8cjY8PwiqoCSfw5_jVzLrY"></script>
 </head>
 
 <body>
@@ -43,5 +39,14 @@
         <div id="map"></div>
     </div>
 </body>
+
+  <script>
+    function googleError() {
+      alert('Google Maps Error');
+    }
+  </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoeg_J21aWd8cjY8PwiqoCSfw5_jVzLrY" async onError="googleError()"></script>
+  <script src="scripts/MapViewModel.js"></script>
 
 </html>
