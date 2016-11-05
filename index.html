@@ -17,7 +17,6 @@
 
     <!-- scripts -->
     <script src="scripts/MapViewModel.js"></script>
-    <script src="scripts/app.js"></script>
 
     <!-- Google Maps API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoeg_J21aWd8cjY8PwiqoCSfw5_jVzLrY"></script>
@@ -35,7 +34,7 @@
                 <ul data-bind="template: {name: 'house', foreach:housesObservable}"></ul>
                 <script type="text/html" id="house">
                     <li>
-                        <h3 class="listview-item" data-bind="text: name"></h3>
+                        <h3 class="listview-item" data-bind="text: name, click: $parent.openHouseInfo"></h3>
                         <hr>
                     </li>
                 </script>

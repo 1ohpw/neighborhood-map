@@ -130,7 +130,7 @@ function MapViewModel() {
                         markers.push(marker);
 
                     } else {
-                        console.log('Geocode unsuccessful');
+                        alert('Geocode unsuccessful');
                     }
                 });
             },
@@ -155,13 +155,8 @@ function MapViewModel() {
 
     setMarkers();
 
-}
-
-$(document).ready(function() {
-    ko.applyBindings(new MapViewModel());
-
-    $(".listview-item").click(function() {
-        var clickedHouse = $(this).text();
+    mvm.openHouseInfo = function(listItem) {
+        var clickedHouse = listItem.name;
         markers.forEach(function(marker) {
             if (clickedHouse == marker.title) {
                 marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -175,5 +170,10 @@ $(document).ready(function() {
                 });
             }
         });
-    });
+    };
+}
+
+$(document).ready(function() {
+    ko.applyBindings(new MapViewModel());
+
 });
