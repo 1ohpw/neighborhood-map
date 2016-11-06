@@ -11,11 +11,6 @@
     <link href="https://fonts.googleapis.com/css?family=Asap:400,700" rel="stylesheet">
     <link rel="stylesheet" href="styles/styles.css">
 
-    <!-- vendor scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
-    <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-
-    <!-- scripts -->
 </head>
 
 <body>
@@ -45,7 +40,9 @@
       alert('Google Maps Error');
     }
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+  <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script src="scripts/MapViewModel.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoeg_J21aWd8cjY8PwiqoCSfw5_jVzLrY" async onerror="googleError()"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoeg_J21aWd8cjY8PwiqoCSfw5_jVzLrY&callback=mapsLoaded" async onerror="googleError()"></script>
 
 </html>
